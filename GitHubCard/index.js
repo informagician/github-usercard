@@ -2,18 +2,21 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
-followersArray.forEach(function(follower) {
+
+followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+
+followersArray.forEach(function (follower) {
   axios.get('https://api.github.com/users/' + follower)
-  .then(response => {
-    console.log(response.data);
-    const newCard = cardCreator(response.data);
-    cards.appendChild(newCard);
-  })
-  .catch(function(err) {
-    console.log(err);
-  })
+    .then(response => {
+      console.log(response.data);
+      const newCard = cardCreator(response.data);
+      cards.appendChild(newCard);
+    })
+    .catch(function (err) {
+      console.log(err);
+    })
 });
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -59,18 +62,18 @@ followersArray.forEach(function(follower) {
 function cardCreator(res) {
 
   const card = document.createElement('div'),
-        image = document.createElement('img'),
-        cardInfo = document.createElement('div'),
-        name = document.createElement('h3'),
-        username = document.createElement('p'),
-        location = document.createElement('p'),
-        profile = document.createElement('p'),
-        profileLink = document.createElement('a'),
-        followers = document.createElement('p'),
-        followersLink = document.createElement('a'),
-        following = document.createElement('p'),
-        followingLink = document.createElement('a'),
-        bio = document.createElement('p');
+    image = document.createElement('img'),
+    cardInfo = document.createElement('div'),
+    name = document.createElement('h3'),
+    username = document.createElement('p'),
+    location = document.createElement('p'),
+    profile = document.createElement('p'),
+    profileLink = document.createElement('a'),
+    followers = document.createElement('p'),
+    followersLink = document.createElement('a'),
+    following = document.createElement('p'),
+    followingLink = document.createElement('a'),
+    bio = document.createElement('p');
 
   card.classList.add('card');
 
@@ -89,12 +92,14 @@ function cardCreator(res) {
   profileLink.textContent = `${res.html_url}`;
   profileLink.setAttribute('href', res.html_url);
   profile.textContent = `Profile: `;
-  
+
   followersLink.textContent = `${res.followers}`;
+  followersLink.classList.add('follow');
   followersLink.setAttribute('href', res.followers_url);
   followers.textContent = `Followers: `;
 
   followingLink.textContent = `${res.following}`;
+  followingLink.classList.add('follow');
   followingLink.setAttribute('href', res.following_url);
   following.textContent = `Following: `;
   bio.textContent = res.bio;
@@ -119,8 +124,7 @@ function cardCreator(res) {
 
 const cards = document.querySelector('.cards');
 
-
-/* List of LS Instructors Github username's: 
+/* List of LS Instructors Github username's:
   tetondan
   dustinmyers
   justsml

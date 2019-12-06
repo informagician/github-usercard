@@ -4,8 +4,6 @@
 */
 const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
-
-let res;
 followersArray.forEach(function(follower) {
   axios.get('https://api.github.com/users/' + follower)
   .then(response => {
@@ -69,7 +67,9 @@ function cardCreator(res) {
         profile = document.createElement('p'),
         profileLink = document.createElement('a'),
         followers = document.createElement('p'),
+        followersLink = document.createElement('a'),
         following = document.createElement('p'),
+        followingLink = document.createElement('a'),
         bio = document.createElement('p');
 
   card.classList.add('card');
@@ -90,9 +90,13 @@ function cardCreator(res) {
   profileLink.setAttribute('href', res.html_url);
   profile.textContent = `Profile: `;
   
+  followersLink.textContent = `${res.followers}`;
+  followersLink.setAttribute('href', res.followers_url);
+  followers.textContent = `Followers: `;
 
-  followers.textContent = `Followers: ${res.followers}`;
-  following.textContent = `Following: ${res.following}`;
+  followingLink.textContent = `${res.following}`;
+  followingLink.setAttribute('href', res.following_url);
+  following.textContent = `Following: `;
   bio.textContent = res.bio;
 
   card.appendChild(image);
@@ -104,7 +108,9 @@ function cardCreator(res) {
   cardInfo.appendChild(profile);
   profile.appendChild(profileLink);
   cardInfo.appendChild(followers);
+  followers.appendChild(followersLink);
   cardInfo.appendChild(following);
+  following.appendChild(followingLink);
   cardInfo.appendChild(bio);
 
   return card;

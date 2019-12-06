@@ -3,10 +3,13 @@
            https://api.github.com/users/<your name>
 */
 const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+
+
+let res;
 followersArray.forEach(function(follower) {
   axios.get('https://api.github.com/users/' + follower)
   .then(response => {
-    console.log(response.data);  
+    console.log(response.data);
     const newCard = cardCreator(response.data);
     cards.appendChild(newCard);
   })
@@ -83,8 +86,10 @@ function cardCreator(res) {
 
   location.textContent = res.location;
 
-  profile.textContent = 'Profile: ';
+  profileLink.textContent = `${res.html_url}`;
   profileLink.setAttribute('href', res.html_url);
+  profile.textContent = `Profile: `;
+  
 
   followers.textContent = `Followers: ${res.followers}`;
   following.textContent = `Following: ${res.following}`;

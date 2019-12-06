@@ -6,7 +6,7 @@
 
 axios.get('https://api.github.com/users/informagician')
 .then(function(response){
-  console.log(response)
+  const data = response;
 })
 .catch(function(err) {
   console.log(err);
@@ -21,16 +21,7 @@ axios.get('https://api.github.com/users/informagician')
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
-function cardCreator(data) {
 
-  const card = document.createElement(div),
-        image = document.createElement(img),
-        name = document.createElement(h3),
-        bio = document.createElement(p),
-        username = document.createElement(h4);
-
-  
-}
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -60,9 +51,52 @@ const followersArray = [];
     <p>Bio: {users bio}</p>
   </div>
 </div>
-
 */
+function cardCreator(data) {
 
+  const card = document.createElement(div),
+        image = document.createElement(img),
+        cardInfo = document.createElement(div),
+        name = document.createElement(h3),
+        username = document.createElement(p),
+        location = document.createElement(p),
+        profile = document.createElement(p),
+        profileLink = document.createElement(a),
+        followers = document.createElement(p),
+        following = document.createElement(p),
+        bio = document.createElement(p);
+
+  card.classList.add('card');
+
+  image.setAttribute('src', data.avatar_url);
+
+  cardInfo.classList.add('card-info');
+
+  name.classList.add('name');
+  name.textContent = data.name;
+
+  username.classList.add('username');
+  username.textContent = data.login;
+
+  location.textContent = data.location;
+
+  profile.textContent = 'Profile: ';
+  profileLink.setAttribute('href', data.html_url);
+
+  followers.textContent = `Followers: ${data.followers}`;
+  following.textContent = `Following: ${data.following}`;
+  bio.textContent = data.bio;
+
+  card.appendChild(image);
+  card.appendChild(name);
+  card.appendChild(bio);
+  card.appendChild(username);
+
+  return card;
+}
+
+const cards = document.querySelector('cards');
+cards.appendChild(card);
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
